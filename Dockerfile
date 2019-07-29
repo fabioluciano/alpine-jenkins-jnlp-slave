@@ -20,6 +20,7 @@ RUN apk add --update --no-cache curl bash git git-lfs openssh-client openssl pro
     && adduser -h /home/${JENKINS_USERNAME} -u ${JENKINS_UID} -G ${JENKINS_GROUP} -D ${JENKINS_USERNAME} \
     && curl --create-dirs -fsSLo /usr/share/jenkins/slave.jar https://repo.jenkins-ci.org/public/org/jenkins-ci/main/remoting/${JENKINS_AGENT_VERSION}/remoting-${JENKINS_AGENT_VERSION}.jar \
     && chmod 755 /usr/share/jenkins && chmod 644 /usr/share/jenkins/slave.jar \
+    && chmod +x /usr/local/bin/jenkins-slave \
     && mkdir ${HOME}/{.jenkins,agent}
 
 USER ${JENKINS_USERNAME}
