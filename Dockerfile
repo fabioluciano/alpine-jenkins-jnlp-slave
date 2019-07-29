@@ -13,6 +13,8 @@ ARG JENKINS_GROUP=jenkins
 ENV HOME /home/${JENKINS_USERNAME}
 ENV AGENT_WORKDIR ${HOME}/agent
 
+COPY jenkins-slave /usr/local/bin/jenkins-slave
+
 RUN apk add --update --no-cache curl bash git git-lfs openssh-client openssl procps \
     && addgroup -g ${JENKINS_GID} ${JENKINS_GROUP} \
     && adduser -h /home/${JENKINS_USERNAME} -u ${JENKINS_UID} -G ${JENKINS_GROUP} -D ${JENKINS_USERNAME} \
@@ -27,11 +29,4 @@ VOLUME ${AGENT_WORKDIR}
 
 WORKDIR ${HOME}
 
-
-# RUN apk --no-cache add py2-pip shadow && pip install --upgrade pip && pip install --no-cache-dir --upgrade --user awscli \
-#   && mkdir -p /home/jenkins/.local/bin/ && ln -s /usr/bin/pip /home/jenkins/.local/bin/pip \
-#   && wget --quiet https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz -O docker.tgz \ 
-#   && tar xzvf docker.tgz && mv docker/docker /usr/local/bin \
-#   && addgroup docker && usermod -aG docker jenkins && rm -r docker docker.tgz  
-
-# ENTRYPOINT [ "/usr/local/bin/docker" ]
+ENTRYPOINT ["jenkins-slave"]
