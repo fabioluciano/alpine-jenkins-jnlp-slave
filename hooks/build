@@ -12,4 +12,8 @@ if [[ "$SOURCE_BRANCH" =~ $PATTERN ]]; then
     -f $DOCKERFILE_PATH \
     -t $IMAGE_NAME \
     .
+else 
+  docker build \
+    -f $DOCKERFILE_PATH \
+    -t $IMAGE_NAME \
 fi
