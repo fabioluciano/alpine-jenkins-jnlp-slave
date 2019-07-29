@@ -11,9 +11,10 @@ if [[ "$SOURCE_BRANCH" =~ $PATTERN ]]; then
     --build-arg JENKINS_AGENT_VERSION=$JENKINS_AGENT_VERSION \
     -f $DOCKERFILE_PATH \
     -t $IMAGE_NAME \
-    .
+  .
 else 
   docker build \
     -f $DOCKERFILE_PATH \
     -t $IMAGE_NAME \
+  .
 fi
