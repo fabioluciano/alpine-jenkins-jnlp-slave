@@ -22,7 +22,7 @@ RUN apk add --update --no-cache curl bash git git-lfs openssh-client openssl pro
     && chmod 755 /usr/share/jenkins && chmod 644 /usr/share/jenkins/slave.jar \
     && chmod +x /usr/local/bin/jenkins-slave \
     && mkdir ${HOME}/{.jenkins,agent} \
-    && chown ${JENKINS_USERNAME}:${JENKINS_GROUP} ${HOME} -R
+    && chown ${JENKINS_USERNAME}:${JENKINS_GROUP} ${HOME} ${HOME}/.jenkins -R
 
 USER ${JENKINS_USERNAME}
 
