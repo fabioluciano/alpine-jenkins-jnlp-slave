@@ -1,6 +1,6 @@
 ARG OPENJDK_VERSION='12'
 
-FROM openjdk:${OPENJDK_VERSION}-jdk-alpine
+FROM openjdk:${OPENJDK_VERSION}-jdk-oracle
 LABEL maintainer="Integr8"
 
 # Jenkins Variables
@@ -15,14 +15,15 @@ ENV AGENT_WORKDIR ${HOME}/agent
 
 COPY jenkins-slave /usr/local/bin/jenkins-slave
 
-RUN apk add --update --no-cache curl bash git git-lfs openssh-client openssl procps \
-    && addgroup -g ${JENKINS_GID} ${JENKINS_GROUP} \
-    && adduser -h /home/${JENKINS_USERNAME} -u ${JENKINS_UID} -G ${JENKINS_GROUP} -D ${JENKINS_USERNAME} \
+RUN yum install -y curl bash git git-lfs openssh-client openssl procps\
+    && groupadd -g ${JENKINS_GID} ${JENKINS_GROUP} \
+    && adduser -d /home/${JENKINS_USERNAME} -u ${JENKINS_UID} -g ${JENKINS_GROUP} ${JENKINS_USERNAME} \
     && curl --create-dirs -fsSLo /usr/share/jenkins/slave.jar https://repo.jenkins-ci.org/public/org/jenkins-ci/main/remoting/${JENKINS_AGENT_VERSION}/remoting-${JENKINS_AGENT_VERSION}.jar \
     && mkdir ${HOME}/.jenkins ${HOME}/agent \
     && chown ${JENKINS_USERNAME}:${JENKINS_GROUP} ${HOME} -R \
     && chmod 755 /usr/share/jenkins && chmod 644 /usr/share/jenkins/slave.jar \
-    && chmod +x /usr/local/bin/jenkins-slave
+    && chmod +x /usr/local/bin/jenkins-slave \
+    && yum clean all && rm -rf /var/cache/yum
 
 USER ${JENKINS_USERNAME}
 
