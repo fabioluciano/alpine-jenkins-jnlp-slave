@@ -1,6 +1,6 @@
 ARG OPENJDK_VERSION='12'
 
-FROM openjdk:${OPENJDK_VERSION}-jdk-oracle
+FROM openjdk:${OPENJDK_VERSION}
 LABEL maintainer="Integr8"
 
 # Jenkins Variables

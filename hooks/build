@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PATTERN="^openjdk-([0-9.]+)_agent-([0-9.]+)$"
+PATTERN="^([a-z0-9.-]+)_agent-([0-9.]+)$"
 
 if [[ "$SOURCE_BRANCH" =~ $PATTERN ]]; then
   OPENJDK_VERSION="${BASH_REMATCH[1]}"
