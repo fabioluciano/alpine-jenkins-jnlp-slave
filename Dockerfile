@@ -1,4 +1,4 @@
-ARG OPENJDK_VERSION='12'
+ARG OPENJDK_VERSION='12-jdk-oracle'
 
 FROM openjdk:${OPENJDK_VERSION}
 LABEL maintainer="Integr8"
